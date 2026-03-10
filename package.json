@@ -40,9 +40,16 @@
     "beta:exit": "changeset pre exit",
     "beta:version": "changeset version",
     "beta:publish": "changeset publish",
-    "beta:promote": "ship promote-stable --dir ."
+    "beta:promote": "ship promote-stable --dir .",
+    "check": "npm run test",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "npm run check && changeset publish"
   },
   "engines": {
     "node": ">=20"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.7"
   }
 }

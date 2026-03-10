@@ -1,0 +1,11 @@
+{
+  "adapter": "npm",
+  "baseBranch": "main",
+  "betaBranch": "release/beta",
+  "releaseTargets": [
+    "npm"
+  ],
+  "releasePolicy": {
+    "stopOnError": true
+  }
+}
