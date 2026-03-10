@@ -35,7 +35,12 @@
   "type": "commonjs",
   "scripts": {
     "test": "node --test --test-concurrency=1 test/maestro.test.js",
-    "pack:check": "npm pack --dry-run"
+    "pack:check": "npm pack --dry-run",
+    "beta:enter": "changeset pre enter beta",
+    "beta:exit": "changeset pre exit",
+    "beta:version": "changeset version",
+    "beta:publish": "changeset publish",
+    "beta:promote": "ship promote-stable --dir ."
   },
   "engines": {
     "node": ">=20"
