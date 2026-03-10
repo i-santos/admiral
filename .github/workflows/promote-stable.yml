@@ -33,11 +33,19 @@ jobs:
       promotion_pr_number: ${{ steps.pr.outputs.pull-request-number }}
       promotion_pr_url: ${{ steps.pr.outputs.pull-request-url }}
     steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.GH_APP_ID || secrets.GH_APP_CLIENT_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.CHANGESETS_GH_TOKEN || secrets.GITHUB_TOKEN }}
+          token: ${{ steps.app-token.outputs.token }}
           ref: ${{ github.event.inputs.target_beta_branch }}
 
       - name: Setup Node.js
@@ -83,7 +91,7 @@ jobs:
         id: pr
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.CHANGESETS_GH_TOKEN || secrets.GITHUB_TOKEN }}
+          token: ${{ steps.app-token.outputs.token }}
           base: ${{ github.event.inputs.target_beta_branch }}
           branch: ${{ steps.prepare.outputs.promotion_branch }}
           title: "chore: promote beta to stable"
@@ -98,4 +106,4 @@ jobs:
         if: steps.pr.outputs.pull-request-number != ''
         run: gh pr merge "${{ steps.pr.outputs.pull-request-number }}" --repo "${{ github.repository }}" --squash --auto
         env:
-          GH_TOKEN: ${{ secrets.CHANGESETS_GH_TOKEN || secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
