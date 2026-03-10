@@ -1,5 +1,5 @@
 {
-  "name": "maestro",
+  "name": "@i-santos/maestro",
   "version": "0.1.0",
   "description": "Local multi-agent orchestration CLI for software projects.",
   "license": "MIT",
@@ -22,6 +22,9 @@
   ],
   "bin": {
     "maestro": "bin/maestro"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "files": [
     "bin/",
