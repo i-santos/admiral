@@ -1,0 +1,15 @@
+{
+  "name": "maestro",
+  "version": "0.1.0",
+  "description": "Local multi-agent orchestration CLI for software projects.",
+  "bin": {
+    "maestro": "bin/maestro"
+  },
+  "type": "commonjs",
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
