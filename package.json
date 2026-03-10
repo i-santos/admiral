@@ -4,6 +4,14 @@
   "description": "Local multi-agent orchestration CLI for software projects.",
   "license": "MIT",
   "author": "Igor",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/i-santos/maestro.git"
+  },
+  "bugs": {
+    "url": "https://github.com/i-santos/maestro/issues"
+  },
+  "homepage": "https://github.com/i-santos/maestro#readme",
   "keywords": [
     "cli",
     "agents",
