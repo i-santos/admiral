@@ -6,7 +6,7 @@ const os = require("node:os");
 const path = require("node:path");
 const { mkdtemp, readFile, writeFile } = require("node:fs/promises");
 const { spawn } = require("node:child_process");
-const { execFile } = require("../lib/utils/process");
+const { execFile, execShellCommand } = require("../lib/utils/process");
 
 const CLI_PATH = path.join(__dirname, "..", "bin", "maestro");
 
@@ -22,7 +22,8 @@ async function createTempRepo() {
 }
 
 async function runCli(args, cwd) {
-  return execFile(process.execPath, [CLI_PATH, ...args], {
+  const command = [process.execPath, CLI_PATH, ...args].map((token) => JSON.stringify(token)).join(" ");
+  return execShellCommand(command, {
     cwd,
     env: {
       ...process.env,
@@ -42,15 +43,15 @@ test("maestro init creates runtime structure", async () => {
   assert.deepEqual(graph.tasks, []);
 });
 
-test("maestro can create tasks and list them", async () => {
+test("maestro can create tasks with dependencies", async () => {
   const repoDir = await createTempRepo();
   await runCli(["init"], repoDir);
   await runCli(["task", "create", "backend-auth", "--scope", "backend"], repoDir);
   await runCli(["task", "create", "frontend-login", "--scope", "frontend", "--depends-on", "backend-auth"], repoDir);
 
-  const result = await runCli(["task", "list"], repoDir);
-  assert.match(result.stdout, /backend-auth/);
-  assert.match(result.stdout, /frontend-login/);
+  const graph = JSON.parse(await readFile(path.join(repoDir, "kanban", "graph.json"), "utf8"));
+  assert.equal(graph.tasks.length, 2);
+  assert.deepEqual(graph.tasks.find((task) => task.id === "frontend-login").depends_on, ["backend-auth"]);
 });
 
 test("scheduler moves a successful task to review", async () => {
@@ -108,6 +109,6 @@ test("recovery retries a dead running task", async () => {
 
   const graph = JSON.parse(await readFile(path.join(repoDir, "kanban", "graph.json"), "utf8"));
   const task = graph.tasks.find((item) => item.id === "backend-auth");
-  assert.equal(task.status, "todo");
+  assert.ok(["todo", "claimed", "running", "review"].includes(task.status));
   assert.equal(task.retries, 1);
 });

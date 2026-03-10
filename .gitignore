@@ -1,0 +1,9 @@
+.maestro/
+events/
+kanban/
+logs/
+runtime/
+workspaces/
+.local/
+*.tgz
+node_modules/

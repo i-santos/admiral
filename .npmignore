@@ -1,0 +1,11 @@
+.git/
+.github/
+.local/
+.maestro/
+events/
+kanban/
+logs/
+runtime/
+workspaces/
+test/
+*.tgz
