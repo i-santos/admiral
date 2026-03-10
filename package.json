@@ -2,12 +2,29 @@
   "name": "maestro",
   "version": "0.1.0",
   "description": "Local multi-agent orchestration CLI for software projects.",
+  "license": "MIT",
+  "author": "Igor",
+  "keywords": [
+    "cli",
+    "agents",
+    "automation",
+    "git-worktree",
+    "orchestration",
+    "developer-tools"
+  ],
   "bin": {
     "maestro": "bin/maestro"
   },
+  "files": [
+    "bin/",
+    "lib/",
+    "README.md",
+    "LICENSE"
+  ],
   "type": "commonjs",
   "scripts": {
-    "test": "node --test"
+    "test": "node --test --test-concurrency=1 test/maestro.test.js",
+    "pack:check": "npm pack --dry-run"
   },
   "engines": {
     "node": ">=20"
