@@ -33,8 +33,6 @@ jobs:
       promotion_pr_number: ${{ steps.pr.outputs.pull-request-number }}
       promotion_pr_url: ${{ steps.pr.outputs.pull-request-url }}
     steps:
-
-
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -67,7 +65,7 @@ jobs:
           file=".changeset/promote-stable-${{ github.run_id }}.md"
           cat > "$file" <<EOF
           ---
-          "@i-santos/maestro": ${{ github.event.inputs.promote_type }}
+          "@i-santos/admiral": ${{ github.event.inputs.promote_type }}
           ---
 
           ${{ github.event.inputs.summary }}

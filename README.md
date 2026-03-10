@@ -1,6 +1,6 @@
-# maestro
+# admiral
 
-`maestro` is a local-first CLI for orchestrating multiple coding agents inside any Git repository.
+`admiral` is a local-first CLI for orchestrating multiple coding agents inside any Git repository.
 
 It creates an isolated runtime in the target project, models work as a JSON task graph, and runs agents in parallel using `git worktree`.
 
@@ -8,18 +8,18 @@ It creates an isolated runtime in the target project, models work as a JSON task
 
 The current implementation covers the practical core of phases 1 and 2:
 
-- `maestro init`
-- `maestro run`
-- `maestro status`
-- `maestro task create`
-- `maestro task list`
-- `maestro task retry`
-- `maestro merge`
-- `maestro cleanup`
+- `admiral init`
+- `admiral run`
+- `admiral status`
+- `admiral task create`
+- `admiral task list`
+- `admiral task retry`
+- `admiral merge`
+- `admiral cleanup`
 
 It also includes:
 
-- local runtime folders under `.maestro/`, `kanban/`, `runtime/`, `events/`, and `workspaces/`
+- local runtime folders under `.admiral/`, `kanban/`, `runtime/`, `events/`, and `workspaces/`
 - task dependency handling through `kanban/graph.json`
 - scheduler-based claiming and execution
 - isolated workspaces through `git worktree`
@@ -29,39 +29,39 @@ It also includes:
 ## Installation
 
 ```bash
-npm install -g maestro
+npm install -g @i-santos/admiral
 ```
 
 ## Usage
 
-Initialize `maestro` inside a Git repository:
+Initialize `admiral` inside a Git repository:
 
 ```bash
-maestro init
+admiral init
 ```
 
 Create tasks:
 
 ```bash
-maestro task create backend-auth --scope backend
-maestro task create frontend-login --scope frontend --depends-on backend-auth
+admiral task create backend-auth --scope backend
+admiral task create frontend-login --scope frontend --depends-on backend-auth
 ```
 
 Run the scheduler once:
 
 ```bash
-maestro run --once
+admiral run --once
 ```
 
 Check status:
 
 ```bash
-maestro status
+admiral status
 ```
 
 ## Configuration
 
-`maestro init` creates `.maestro/config.json` with defaults such as:
+`admiral init` creates `.admiral/config.json` with defaults such as:
 
 - `max_agents`
 - `scheduler_interval_ms`
@@ -71,13 +71,13 @@ maestro status
 - `agent_command`
 - `scopes`
 
-The runner is provider-agnostic. `maestro` executes the configured `agent_command` inside the task workspace and exposes task metadata through environment variables like:
+The runner is provider-agnostic. `admiral` executes the configured `agent_command` inside the task workspace and exposes task metadata through environment variables like:
 
-- `MAESTRO_TASK_ID`
-- `MAESTRO_TASK_TITLE`
-- `MAESTRO_TASK_SCOPE`
-- `MAESTRO_TASK_BRANCH`
-- `MAESTRO_TASK_WORKSPACE`
+- `ADMIRAL_TASK_ID`
+- `ADMIRAL_TASK_TITLE`
+- `ADMIRAL_TASK_SCOPE`
+- `ADMIRAL_TASK_BRANCH`
+- `ADMIRAL_TASK_WORKSPACE`
 
 ## Development
 

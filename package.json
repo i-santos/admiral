@@ -1,17 +1,17 @@
 {
-  "name": "@i-santos/maestro",
+  "name": "@i-santos/admiral",
   "version": "0.1.0",
   "description": "Local multi-agent orchestration CLI for software projects.",
   "license": "MIT",
   "author": "Igor",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/i-santos/maestro.git"
+    "url": "git+ssh://git@github.com/i-santos/admiral.git"
   },
   "bugs": {
-    "url": "https://github.com/i-santos/maestro/issues"
+    "url": "https://github.com/i-santos/admiral/issues"
   },
-  "homepage": "https://github.com/i-santos/maestro#readme",
+  "homepage": "https://github.com/i-santos/admiral#readme",
   "keywords": [
     "cli",
     "agents",
@@ -21,7 +21,7 @@
     "developer-tools"
   ],
   "bin": {
-    "maestro": "bin/maestro"
+    "admiral": "bin/admiral"
   },
   "publishConfig": {
     "access": "public"
@@ -34,7 +34,7 @@
   ],
   "type": "commonjs",
   "scripts": {
-    "test": "node --test --test-concurrency=1 test/maestro.test.js",
+    "test": "node --test --test-concurrency=1 test/admiral.test.js",
     "pack:check": "npm pack --dry-run",
     "beta:enter": "changeset pre enter beta",
     "beta:exit": "changeset pre exit",
